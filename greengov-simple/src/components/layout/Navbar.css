@@ -1,0 +1,195 @@
+/*
+  Navbar.css — Navbar Styles
+  ============================
+  Key technique: the .scrolled class is added by JavaScript (in Navbar.jsx)
+  when the user scrolls past 60px. The transition on .gg-navbar makes
+  the background change smoothly instead of snapping.
+*/
+
+/* ---------- Base Navbar ---------- */
+.gg-navbar {
+  position: fixed;          /* stays at the top even as page scrolls */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;            /* always on top of all other content */
+  padding: 1rem 0;
+
+  /* Start transparent; transitions to solid when .scrolled is added */
+  background: transparent;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/*
+  .scrolled is toggled by React when window.scrollY > 60.
+  The background changes from transparent → dark green.
+  The transition above makes this smooth.
+*/
+.gg-navbar.scrolled {
+  background: rgba(6, 32, 15, 0.95);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* ---------- Brand ---------- */
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  margin-right: auto; /* pushes nav links and actions to the right */
+}
+
+.brand-icon { font-size: 1.8rem; }
+
+.brand-name {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--mint);
+  line-height: 1;
+}
+
+.brand-tagline {
+  display: block;
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.05em;
+}
+
+/* ---------- Desktop Nav Links ---------- */
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+}
+
+.nav-links a {
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--mint); }
+
+/* ---------- Action Buttons ---------- */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btn-login {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.4rem 0.75rem;
+  transition: color 0.2s;
+}
+
+.btn-login:hover { color: white; }
+
+.btn-register {
+  background: var(--gold);
+  color: var(--forest);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.5rem 1.1rem;
+  border-radius: 8px;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.btn-register:hover {
+  background: var(--gold-light);
+  transform: translateY(-1px);
+}
+
+/* ---------- Hamburger Toggle (mobile only) ---------- */
+.menu-toggle {
+  display: none; /* hidden on desktop; shown via media query below */
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+/*
+  Each span is one bar of the hamburger icon.
+  When .open is added (menuOpen = true), CSS rotates two bars
+  to form an X, and the middle bar disappears.
+*/
+.menu-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+/* X transformation on open */
+.menu-toggle span.open:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.menu-toggle span.open:nth-child(2) { opacity: 0; }
+.menu-toggle span.open:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* ---------- Mobile Dropdown Menu ---------- */
+.mobile-menu {
+  display: none; /* hidden by default */
+  background: rgba(6, 32, 15, 0.97);
+  padding: 1rem 2rem;
+}
+
+/*
+  .active is toggled by React when menuOpen = true.
+  display: block makes it appear; the max-height trick
+  would also work for animated expand (not used here for simplicity).
+*/
+.mobile-menu.active { display: block; }
+
+.mobile-menu ul { list-style: none; }
+.mobile-menu li { border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+.mobile-menu a {
+  display: block;
+  padding: 0.85rem 0;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.mobile-cta {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: none !important;
+}
+
+.mobile-register {
+  background: var(--gold);
+  color: var(--forest) !important;
+  padding: 0.4rem 1rem !important;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .nav-links  { display: none; } /* hide desktop links on mobile */
+  .nav-actions { display: none; }
+  .menu-toggle { display: flex; } /* show hamburger on mobile */
+}

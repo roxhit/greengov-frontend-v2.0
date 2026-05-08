@@ -1,0 +1,124 @@
+/* RolesSection.css */
+
+.roles-section {
+  background: linear-gradient(135deg, #06200f 0%, #0f3d2e 60%, #1a5c40 100%);
+  padding: 6rem 2rem;
+}
+
+/* Two-column layout: tabs on left, detail panel on right */
+.roles-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 2rem;
+  margin-top: 3rem;
+  align-items: start;
+}
+@media (max-width: 768px) { .roles-layout { grid-template-columns: 1fr; } }
+
+/* ---------- Tab Buttons ---------- */
+.roles-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.role-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  cursor: pointer;
+  text-align: left;
+  color: rgba(255, 255, 255, 0.65);
+  transition: background 0.2s, border-color 0.2s;
+  position: relative;
+}
+
+.role-tab:hover { background: rgba(255, 255, 255, 0.08); }
+
+/* Active tab gets a stronger background and colored border (set via inline style) */
+.role-tab.active {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.rt-icon { font-size: 1.4rem; }
+
+.rt-text { display: flex; flex-direction: column; gap: 0.15rem; }
+.rt-title { font-weight: 600; font-size: 0.9rem; color: inherit; }
+.rt-sub   { font-size: 0.72rem; opacity: 0.7; }
+
+/* Small colored dot on the right edge of the active tab */
+.rt-active-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* ---------- Detail Panel ---------- */
+.role-detail {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 2rem;
+  /* Fade in when key changes (React remounts the element) */
+  animation: fadeUp 0.35s ease forwards;
+}
+
+.rd-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid; /* border-color set via inline style */
+  margin-bottom: 1.5rem;
+}
+
+.rd-icon {
+  font-size: 1.75rem;
+  width: 56px; height: 56px;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.rd-title   { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: white; }
+.rd-tagline { font-size: 0.8rem; font-weight: 500; }
+
+/* Action items list */
+.rd-actions { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem; }
+.rd-action-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+.rd-check { font-weight: 700; flex-shrink: 0; }
+
+/* CTA button — background color set via inline style */
+.rd-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.rd-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+/* Light eyebrow + title variants for dark backgrounds */
+.title-em-light {
+  background: linear-gradient(135deg, #7ec8a0 0%, #c9a84c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

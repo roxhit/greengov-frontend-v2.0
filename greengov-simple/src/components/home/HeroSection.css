@@ -1,0 +1,353 @@
+/*
+  HeroSection.css
+  ================
+  Visual effects breakdown:
+
+  1. Background Orbs (.bg-orb):
+     Circular divs with radial-gradient + heavy blur(80px) → soft colored glows.
+
+  2. Grid Overlay (.hero-grid-overlay):
+     Two stacked linear-gradients create faint horizontal and vertical lines.
+
+  3. Shimmer text (.headline-accent):
+     Gradient is wider than the text (200% size), and background-position
+     animates leftward. The text clips the gradient like a window.
+
+  4. Pulse ring (.badge-dot::after):
+     A pseudo-element scales up from 0.8 to 1.8 while fading → radar ping.
+
+  5. Float (.visual-card.float):
+     Applies the float keyframe from global.css — bobs up/down forever.
+
+  6. Scroll indicator (.scroll-wheel):
+     A small rectangle animates up/down inside the mouse outline.
+*/
+
+/* ---------- Section Layout ---------- */
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #06200f 0%, #0f3d2e 40%, #1a5c40 70%, #0d3525 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7rem 2rem 4rem;
+  gap: 3rem;
+  overflow: hidden; /* clips orbs / canvas that extend beyond the section */
+}
+
+/* ---------- Canvas (Particle Layer) ---------- */
+.hero-canvas {
+  position: absolute;
+  inset: 0;                  /* shorthand for top/right/bottom/left: 0 */
+  width: 100%;
+  height: 100%;
+  pointer-events: none;      /* mouse clicks pass through to elements below */
+  z-index: 1;
+}
+
+/* ---------- Background Orbs ---------- */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  /*
+    filter: blur() blurs the entire element.
+    Combined with a radial-gradient that fades to transparent,
+    this creates a soft glowing sphere with no visible edges.
+  */
+  filter: blur(80px);
+}
+
+.orb-1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(74, 155, 111, 0.35) 0%, transparent 70%);
+  top: -100px; right: -50px;
+}
+.orb-2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(201, 168, 76, 0.15) 0%, transparent 70%);
+  bottom: -50px; left: 10%;
+}
+.orb-3 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(126, 200, 160, 0.2) 0%, transparent 70%);
+  top: 40%; left: 45%;
+}
+
+/* ---------- Grid Overlay ---------- */
+/*
+  Two linear-gradients layered via background-image (comma-separated).
+  Each gradient is a 1px colored line that fades to transparent at 1px.
+  background-size: 60px 60px repeats the grid tile across the whole section.
+*/
+.hero-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* ---------- Hero Content (Left Column) ---------- */
+.hero-content {
+  position: relative;
+  max-width: 600px;
+  flex: 1;
+  z-index: 10;
+}
+
+/* ---------- Badge ---------- */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(126, 200, 160, 0.15);
+  border: 1px solid rgba(126, 200, 160, 0.3);
+  border-radius: 100px;
+  padding: 0.4rem 1rem 0.4rem 0.6rem;
+  color: var(--mint);
+  font-size: 0.78rem;
+  font-weight: 500;
+  margin-bottom: 1.75rem;
+  opacity: 0; /* starts invisible; .fade-up animation transitions to opacity: 1 */
+}
+
+.badge-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--mint);
+  position: relative;
+  flex-shrink: 0;
+}
+
+/*
+  ::after creates a pseudo-element — an invisible element attached to .badge-dot.
+  It starts as a circle (border, not fill) the same size as the dot.
+  The pulse-ring animation grows it outward while fading it to 0 opacity.
+  This creates the "radar ping" / pulsing ring effect.
+*/
+.badge-dot::after {
+  content: '';
+  position: absolute;
+  inset: -3px;                     /* slightly larger than the dot */
+  border-radius: 50%;
+  border: 1px solid var(--mint);
+  animation: pulse-ring 1.5s ease-out infinite;
+}
+
+/* ---------- Headline ---------- */
+.hero-headline {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 5vw, 4rem); /* fluid: min 2.6rem, preferred 5vw, max 4rem */
+  font-weight: 800;
+  color: white;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+  opacity: 0; /* fade-up starts hidden */
+}
+
+/*
+  Gradient text technique:
+  1. Apply a gradient as the background of the span.
+  2. Clip the background to the text shape only.
+  3. Make the text itself transparent (so the gradient shows through).
+  4. The shimmer animation slides the background-position, making the
+     gradient appear to flow across the text.
+*/
+.headline-accent {
+  background: linear-gradient(135deg, #7ec8a0 0%, #c9a84c 100%);
+  background-size: 200% auto;      /* wider than the element so it can slide */
+  -webkit-background-clip: text;   /* clip to text (Safari/Chrome) */
+  background-clip: text;
+  -webkit-text-fill-color: transparent; /* text itself is transparent */
+  animation: shimmer 3s linear infinite;
+}
+
+/* ---------- Subtitle ---------- */
+.hero-sub {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.75;
+  margin-bottom: 2.5rem;
+  max-width: 520px;
+  opacity: 0;
+}
+
+/* ---------- CTA Buttons ---------- */
+.hero-ctas {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+  opacity: 0;
+}
+
+.cta-primary {
+  background: var(--gold);
+  color: var(--forest);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.85rem 1.75rem;
+  border-radius: 12px;
+  transition: all 0.3s;
+}
+.cta-primary:hover {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(201, 168, 76, 0.45);
+}
+
+.cta-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.85rem 1.75rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.3s;
+}
+.cta-secondary:hover {
+  background: rgba(255, 255, 255, 0.14);
+  transform: translateY(-2px);
+}
+
+/* ---------- Stat Pills ---------- */
+.hero-stats {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  opacity: 0;
+}
+
+.stat-pill  { display: flex; flex-direction: column; gap: 0.15rem; }
+.stat-val   { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; color: white; }
+.stat-label { font-size: 0.72rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.08em; }
+.stat-divider { width: 1px; height: 40px; background: rgba(255, 255, 255, 0.15); }
+
+/* ---------- Hero Visual (Right Column) ---------- */
+.hero-visual {
+  position: relative;
+  flex: 1;
+  max-width: 440px;
+  z-index: 10;
+  opacity: 0;
+}
+
+/* Glass card — frosted glass effect */
+.visual-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(24px);             /* blurs content behind the card */
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  padding: 1.75rem;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+.vis-inner { display: flex; flex-direction: column; gap: 1.5rem; }
+
+/* ---------- SVG Donut Chart ---------- */
+.donut-wrap { display: flex; justify-content: center; }
+.donut-svg  {
+  width: 120px; height: 120px;
+  transform: rotate(-90deg); /* rotate so the gap starts at the top, not the right */
+}
+/* Counter-rotate the text labels so they remain upright after SVG rotation */
+.donut-svg text { transform: rotate(90deg); transform-origin: 60px 60px; }
+
+/* ---------- Legend ---------- */
+.vis-legend  { display: flex; justify-content: space-around; }
+.legend-item { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; font-size: 0.75rem; color: rgba(255,255,255,0.6); }
+.legend-item strong { font-size: 1rem; font-weight: 700; color: white; }
+.leg-dot { width: 10px; height: 10px; border-radius: 3px; }
+
+/* ---------- Mini Projects ---------- */
+.vis-projects { display: flex; flex-direction: column; gap: 0.75rem; }
+.mini-proj {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 0.6rem 0.75rem;
+}
+.mp-icon { font-size: 1.2rem; flex-shrink: 0; }
+.mp-info { flex: 1; display: flex; flex-direction: column; gap: 0.35rem; }
+.mp-info span { font-size: 0.72rem; color: rgba(255,255,255,0.7); }
+.mp-bar { height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; }
+.mp-bar div { height: 100%; border-radius: 2px; }
+.mp-pct { font-size: 0.75rem; font-weight: 700; color: white; flex-shrink: 0; }
+
+/* ---------- Floating Badges ---------- */
+.floating-badge {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 0.5rem 0.9rem;
+}
+.badge-top    { top: -20px; right: -20px; }
+.badge-bottom { bottom: -20px; left: -20px; }
+.fb-val   { font-size: 0.95rem; font-weight: 700; color: white; }
+.fb-label { font-size: 0.65rem; color: rgba(255,255,255,0.55); }
+
+/* ---------- Scroll Indicator ---------- */
+.scroll-cue {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.scroll-mouse {
+  width: 22px; height: 36px;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 11px;
+  display: flex;
+  justify-content: center;
+  padding: 5px 0;
+}
+
+/* The dot inside the mouse that animates up/down */
+.scroll-wheel {
+  width: 3px; height: 8px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 2px;
+  animation: scrollWheel 1.5s ease-in-out infinite;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .hero-section { flex-direction: column; padding: 6rem 1.5rem 5rem; text-align: center; }
+  .hero-ctas, .hero-stats { justify-content: center; }
+  .hero-visual { max-width: 100%; }
+  .badge-top    { right: 0; top: -15px; }
+  .badge-bottom { left: 0; bottom: -15px; }
+  .scroll-cue   { display: none; }
+}

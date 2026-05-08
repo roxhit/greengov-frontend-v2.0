@@ -1,0 +1,120 @@
+/*
+  global.css — Global Styles & CSS Variables
+  ============================================
+  This file is imported ONCE in index.js and applies to the entire app.
+  Use it for: CSS reset, design tokens (variables), and keyframe animations.
+*/
+
+/* ---------------------------------------------------------
+   1. GOOGLE FONTS — load display + body fonts from the web
+   --------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap');
+
+/* ---------------------------------------------------------
+   2. CSS CUSTOM PROPERTIES (Design Tokens)
+   ---------------------------------------------------------
+   Variables defined here in :root are available globally.
+   Use them with var(--name) anywhere in any CSS file.
+   This makes it easy to update colors in one place.
+   --------------------------------------------------------- */
+:root {
+  /* Color Palette */
+  --forest:     #0f3d2e;   /* darkest green */
+  --emerald:    #1a6b4a;   /* dark green */
+  --sage:       #4a9b6f;   /* medium green */
+  --mint:       #7ec8a0;   /* light green / accent */
+  --gold:       #c9a84c;   /* gold accent */
+  --gold-light: #f0d080;   /* lighter gold for hover */
+  --charcoal:   #1c1c1e;   /* near-black text */
+  --cream:      #faf9f5;   /* page background */
+
+  /* Typography */
+  --font-display: 'Playfair Display', serif;  /* headings */
+  --font-body:    'DM Sans', sans-serif;      /* body text */
+}
+
+/* ---------------------------------------------------------
+   3. CSS RESET — remove browser default spacing & sizing quirks
+   --------------------------------------------------------- */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* padding/border don't add to element size */
+}
+
+html {
+  scroll-behavior: smooth; /* smooth scroll when clicking anchor links */
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--cream);
+  color: var(--charcoal);
+  overflow-x: hidden; /* prevent horizontal scroll from layout overflow */
+  line-height: 1.6;
+}
+
+/* Custom scrollbar (Webkit browsers: Chrome, Safari, Edge) */
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: var(--forest); }
+::-webkit-scrollbar-thumb { background: var(--sage); border-radius: 3px; }
+
+/* ---------------------------------------------------------
+   4. KEYFRAME ANIMATIONS
+   ---------------------------------------------------------
+   Animations defined here can be referenced by name
+   anywhere using: animation: animationName duration timing;
+   --------------------------------------------------------- */
+
+/*
+  fadeUp: element fades in while sliding up.
+  Used on hero text and cards to create a "reveal" entrance.
+  opacity 0→1 and translateY 30px→0 happen together.
+*/
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/*
+  float: gentle up-and-down bobbing effect.
+  Used on the hero visual card to make it feel "alive".
+  translateY moves element -12px up, then back to 0.
+*/
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+
+/*
+  shimmer: text gradient slides from left to right.
+  Works by shifting the background-position of a gradient.
+  Requires: background-size: 200% and background-clip: text.
+*/
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+/*
+  pulse-ring: a dot pulses outward like a radar ping.
+  Used on the badge dot in the hero section.
+  Scale grows from 0.8 to 1.8 while fading out (opacity 1→0).
+*/
+@keyframes pulse-ring {
+  0%   { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+/*
+  scrollWheel: the scroll indicator dot bounces inside the mouse icon.
+  translateY moves it down and back, looping forever.
+*/
+@keyframes scrollWheel {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(8px); }
+}
+
+/* Reusable utility classes that apply the above animations */
+.fade-up { animation: fadeUp 0.7s ease forwards; }
+.float   { animation: float  4s ease-in-out infinite; }
