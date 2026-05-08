@@ -70,9 +70,6 @@ const Navbar = () => {
 
         {/* Desktop navigation links */}
         <ul className="nav-links">
-          <li><a href="#programs">Programs</a></li>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#impact">Impact</a></li>
           <li><a href="#about">About</a></li>
         </ul>
 
@@ -105,9 +102,6 @@ const Navbar = () => {
       */}
       <div className={`mobile-menu ${menuOpen ? 'active' : ''}`}>
         <ul>
-          <li><a href="#programs" onClick={() => setMenuOpen(false)}>Programs</a></li>
-          <li><a href="#features" onClick={() => setMenuOpen(false)}>Features</a></li>
-          <li><a href="#impact"   onClick={() => setMenuOpen(false)}>Impact</a></li>
           <li><a href="#about"    onClick={() => setMenuOpen(false)}>About</a></li>
           <li className="mobile-cta">
             <a href="/login">Sign In</a>

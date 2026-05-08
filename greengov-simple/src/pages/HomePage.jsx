@@ -12,11 +12,8 @@
 import React from 'react';
 import Navbar         from '../components/layout/Navbar';
 import HeroSection    from '../components/home/HeroSection';
-import StatsSection   from '../components/home/StatsSection';
-import FeaturesSection from '../components/home/FeaturesSection';
-import ProgramsSection from '../components/home/ProgramsSection';
+
 import RolesSection   from '../components/home/RolesSection';
-import CTASection     from '../components/home/CTASection';
 import Footer         from '../components/home/Footer';
 
 const HomePage = () => (
@@ -27,11 +24,9 @@ const HomePage = () => (
     {/* All page sections stacked vertically */}
     <main>
       <HeroSection />
-      <StatsSection />
-      <FeaturesSection />
-      <ProgramsSection />
+
       <RolesSection />
-      <CTASection />
+    
     </main>
 
     <Footer />

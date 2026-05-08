@@ -27,7 +27,7 @@ const features = [
   { icon: '📋', title: 'Compliance Monitoring',        desc: 'Stay ahead of environmental regulations with automated alerts, audit trails, and compliance dashboards.', tag: 'Compliance',     color: '#4a9b6f' },
   { icon: '📊', title: 'Analytics & Reporting',        desc: 'Rich dashboards and KPI reports for program efficiency, budget utilization, and sustainability impact.', tag: 'Analytics',      color: '#c9a84c' },
   { icon: '🏗️', title: 'Infrastructure Tracking',      desc: 'Monitor solar plants, wind farms, and recycling units — capacity, status, location, and maintenance.', tag: 'Infrastructure', color: '#7ec8a0' },
-  { icon: '🔔', title: 'Smart Notifications',          desc: 'Instant in-app, SMS, and email alerts for program updates, approval milestones, and compliance deadlines.', tag: 'Alerts',        color: '#4a9b6f' },
+  { icon: '🔔', title: 'Profile Section',          desc: 'Upload the documents to Apply for the services', tag: 'Profile',        color: '#4a9b6f' },
 ];
 
 const FeaturesSection = () => {
