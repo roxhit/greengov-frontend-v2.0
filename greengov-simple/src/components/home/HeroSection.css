@@ -165,14 +165,14 @@
   4. The shimmer animation slides the background-position, making the
      gradient appear to flow across the text.
 */
-.headline-accent {
+/* .headline-accent {
   background: linear-gradient(135deg, #7ec8a0 0%, #c9a84c 100%);
-  background-size: 200% auto;      /* wider than the element so it can slide */
-  -webkit-background-clip: text;   /* clip to text (Safari/Chrome) */
+  background-size: 200% auto;     
+  -webkit-background-clip: text;   
   background-clip: text;
-  -webkit-text-fill-color: transparent; /* text itself is transparent */
+  -webkit-text-fill-color: transparent; 
   animation: shimmer 3s linear infinite;
-}
+} */
 
 /* ---------- Subtitle ---------- */
 .hero-sub {
@@ -248,35 +248,35 @@
 }
 
 /* Glass card — frosted glass effect */
-.visual-card {
+/* .visual-card {
   position: relative;
   background: rgba(255, 255, 255, 0.07);
-  backdrop-filter: blur(24px);             /* blurs content behind the card */
+  backdrop-filter: blur(24px);            
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 24px;
   padding: 1.75rem;
   box-shadow: 0 20px 60px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
-}
+} */
 
-.vis-inner { display: flex; flex-direction: column; gap: 1.5rem; }
+/* .vis-inner { display: flex; flex-direction: column; gap: 1.5rem; } */
 
 /* ---------- SVG Donut Chart ---------- */
-.donut-wrap { display: flex; justify-content: center; }
+/* .donut-wrap { display: flex; justify-content: center; }
 .donut-svg  {
   width: 120px; height: 120px;
-  transform: rotate(-90deg); /* rotate so the gap starts at the top, not the right */
-}
+  transform: rotate(-90deg); 
+} */
 /* Counter-rotate the text labels so they remain upright after SVG rotation */
-.donut-svg text { transform: rotate(90deg); transform-origin: 60px 60px; }
+/* .donut-svg text { transform: rotate(90deg); transform-origin: 60px 60px; } */
 
 /* ---------- Legend ---------- */
-.vis-legend  { display: flex; justify-content: space-around; }
-.legend-item { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; font-size: 0.75rem; color: rgba(255,255,255,0.6); }
+/* .vis-legend  { display: flex; justify-content: space-around; } */
+/* .legend-item { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; font-size: 0.75rem; color: rgba(255,255,255,0.6); }
 .legend-item strong { font-size: 1rem; font-weight: 700; color: white; }
-.leg-dot { width: 10px; height: 10px; border-radius: 3px; }
+.leg-dot { width: 10px; height: 10px; border-radius: 3px; } */
 
 /* ---------- Mini Projects ---------- */
-.vis-projects { display: flex; flex-direction: column; gap: 0.75rem; }
+/* .vis-projects { display: flex; flex-direction: column; gap: 0.75rem; }
 .mini-proj {
   display: flex;
   align-items: center;
@@ -284,16 +284,16 @@
   background: rgba(255, 255, 255, 0.05);
   border-radius: 10px;
   padding: 0.6rem 0.75rem;
-}
-.mp-icon { font-size: 1.2rem; flex-shrink: 0; }
+} */
+/* .mp-icon { font-size: 1.2rem; flex-shrink: 0; }
 .mp-info { flex: 1; display: flex; flex-direction: column; gap: 0.35rem; }
 .mp-info span { font-size: 0.72rem; color: rgba(255,255,255,0.7); }
 .mp-bar { height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; }
 .mp-bar div { height: 100%; border-radius: 2px; }
-.mp-pct { font-size: 0.75rem; font-weight: 700; color: white; flex-shrink: 0; }
+.mp-pct { font-size: 0.75rem; font-weight: 700; color: white; flex-shrink: 0; } */
 
 /* ---------- Floating Badges ---------- */
-.floating-badge {
+/* .floating-badge {
   position: absolute;
   display: flex;
   align-items: center;
@@ -303,14 +303,14 @@
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 12px;
   padding: 0.5rem 0.9rem;
-}
-.badge-top    { top: -20px; right: -20px; }
+} */
+/* .badge-top    { top: -20px; right: -20px; }
 .badge-bottom { bottom: -20px; left: -20px; }
 .fb-val   { font-size: 0.95rem; font-weight: 700; color: white; }
-.fb-label { font-size: 0.65rem; color: rgba(255,255,255,0.55); }
+.fb-label { font-size: 0.65rem; color: rgba(255,255,255,0.55); } */
 
 /* ---------- Scroll Indicator ---------- */
-.scroll-cue {
+/* .scroll-cue {
   position: absolute;
   bottom: 2.5rem;
   left: 50%;
@@ -323,24 +323,12 @@
   font-size: 0.72rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-}
+} */
 
-.scroll-mouse {
-  width: 22px; height: 36px;
-  border: 1.5px solid rgba(255, 255, 255, 0.3);
-  border-radius: 11px;
-  display: flex;
-  justify-content: center;
-  padding: 5px 0;
-}
+
 
 /* The dot inside the mouse that animates up/down */
-.scroll-wheel {
-  width: 3px; height: 8px;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 2px;
-  animation: scrollWheel 1.5s ease-in-out infinite;
-}
+
 
 /* ---------- Responsive ---------- */
 @media (max-width: 768px) {

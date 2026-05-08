@@ -63,17 +63,17 @@ const HeroSection = () => {
         vx, vy — velocity (speed and direction per frame)
         alpha  — transparency (0=invisible, 1=solid)
     */
-    const particles = [];
-    for (let i = 0; i < 50; i++) {
-      particles.push({
-        x:     Math.random() * canvas.width,
-        y:     Math.random() * canvas.height,
-        r:     Math.random() * 2 + 0.5,          // radius 0.5–2.5 px
-        vx:    (Math.random() - 0.5) * 0.3,      // horizontal drift -0.15 to +0.15
-        vy:    -(Math.random() * 0.5 + 0.2),     // always drifting upward
-        alpha: Math.random() * 0.5 + 0.1,        // opacity 0.1–0.6
-      });
-    }
+    // const particles = [];
+    // for (let i = 0; i < 50; i++) {
+    //   particles.push({
+    //     x:     Math.random() * canvas.width,
+    //     y:     Math.random() * canvas.height,
+    //     r:     Math.random() * 2 + 0.5,          // radius 0.5–2.5 px
+    //     vx:    (Math.random() - 0.5) * 0.3,      // horizontal drift -0.15 to +0.15
+    //     vy:    -(Math.random() * 0.5 + 0.2),     // always drifting upward
+    //     alpha: Math.random() * 0.5 + 0.1,        // opacity 0.1–0.6
+    //   });
+    // }
 
     /*
       draw() is the animation loop function.
@@ -86,29 +86,29 @@ const HeroSection = () => {
          b. Move the particle by adding velocity to position.
          c. If particle drifts off-screen, reset it to the bottom.
     */
-    const draw = () => {
-      // Step 1: erase last frame
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // const draw = () => {
+    //   // Step 1: erase last frame
+    //   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      particles.forEach((p) => {
-        // Step 2a: draw this particle as a small filled circle
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); // full circle (0 to 2π radians)
-        ctx.fillStyle = `rgba(126, 200, 160, ${p.alpha})`; // mint green with alpha
-        ctx.fill();
+    //   particles.forEach((p) => {
+    //     // Step 2a: draw this particle as a small filled circle
+    //     ctx.beginPath();
+    //     ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); // full circle (0 to 2π radians)
+    //     ctx.fillStyle = `rgba(126, 200, 160, ${p.alpha})`; // mint green with alpha
+    //     ctx.fill();
 
-        // Step 2b: move the particle for next frame
-        p.x += p.vx;
-        p.y += p.vy;
+    //     // Step 2b: move the particle for next frame
+    //     p.x += p.vx;
+    //     p.y += p.vy;
 
-        // Step 2c: wrap particles back to bottom when they go off the top
-        if (p.y < 0) {
-          p.y = canvas.height;
-          p.x = Math.random() * canvas.width;
-        }
-        // Bounce horizontally off the sides
-        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-      });
+    //     // Step 2c: wrap particles back to bottom when they go off the top
+    //     if (p.y < 0) {
+    //       p.y = canvas.height;
+    //       p.x = Math.random() * canvas.width;
+    //     }
+    //     // Bounce horizontally off the sides
+    //     if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+    //   });
 
       /*
         requestAnimationFrame tells the browser:
@@ -116,20 +116,20 @@ const HeroSection = () => {
         This creates a smooth, continuous animation loop.
         Store the ID so we can cancel it in the cleanup.
       */
-      animationFrameId = requestAnimationFrame(draw);
-    };
+    //   animationFrameId = requestAnimationFrame(draw);
+    // };
 
-    draw(); // Start the animation loop
+    // draw(); // Start the animation loop
 
     /*
       CLEANUP — runs when the component is removed from the DOM.
       cancelAnimationFrame stops the loop.
       removeEventListener prevents memory leaks from the resize handler.
     */
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      window.removeEventListener('resize', resize);
-    };
+  //   return () => {
+  //     cancelAnimationFrame(animationFrameId);
+  //     window.removeEventListener('resize', resize);
+  //   };
   }, []); // empty [] = run once on mount
 
   return (
@@ -149,11 +149,6 @@ const HeroSection = () => {
           - filter: blur(80px) → heavy blur makes them soft "glow" blobs
         They are absolutely positioned behind the content.
       */}
-      <div className="hero-bg">
-        <div className="bg-orb orb-1" />   {/* top-right green glow */}
-        <div className="bg-orb orb-2" />   {/* bottom-left gold glow */}
-        <div className="bg-orb orb-3" />   {/* center mint glow */}
-      </div>
 
       {/*
         Grid Overlay — subtle grid lines via CSS background-image.
@@ -170,14 +165,7 @@ const HeroSection = () => {
           animationDelay staggers each element so they appear one after another,
           creating a cascading entrance effect. (0.1s → 0.25s → 0.4s → etc.)
         */}
-        <div className="hero-badge fade-up" style={{ animationDelay: '0.1s' }}>
-          {/*
-            The badge dot has a ::after pseudo-element in CSS that animates
-            as a pulsing ring — the pulse-ring keyframe in global.css.
-          */}
-          <span className="badge-dot" />
-          <span>India's Premier Green Governance Platform</span>
-        </div>
+       
 
         <h1 className="hero-headline fade-up" style={{ animationDelay: '0.25s' }}>
           Powering a
@@ -199,7 +187,7 @@ const HeroSection = () => {
         </p>
 
         {/* Call-to-action buttons */}
-        <div className="hero-ctas fade-up" style={{ animationDelay: '0.55s' }}>
+        <div className="hero-ctas fade-up">
           <a href="/register" className="cta-primary">Start Your Green Journey →</a>
           <a href="#programs" className="cta-secondary">▶ Explore Programs</a>
         </div>
@@ -239,15 +227,15 @@ const HeroSection = () => {
               strokeDashoffset shifts the start of the dash around the circle.
               The SVG is rotated -90° in CSS so it starts from the top.
             */}
-            <div className="donut-wrap">
+            {/* <div className="donut-wrap">
               <svg viewBox="0 0 120 120" className="donut-svg">
-                {/* Track (background circle) */}
+               
                 <circle cx="60" cy="60" r="48"
                   fill="none"
                   stroke="rgba(255,255,255,0.07)"
                   strokeWidth="14"
                 />
-                {/* Green segment (73%) */}
+             
                 <circle cx="60" cy="60" r="48"
                   fill="none"
                   stroke="#7ec8a0"
@@ -256,7 +244,7 @@ const HeroSection = () => {
                   strokeDashoffset="60"
                   strokeLinecap="round"
                 />
-                {/* Gold segment (18%) */}
+             
                 <circle cx="60" cy="60" r="48"
                   fill="none"
                   stroke="#c9a84c"
@@ -265,33 +253,17 @@ const HeroSection = () => {
                   strokeDashoffset="-160"
                   strokeLinecap="round"
                 />
-                {/* Centre label */}
+               
                 <text x="60" y="56" textAnchor="middle" fill="white" fontSize="18" fontWeight="700">73%</text>
                 <text x="60" y="72" textAnchor="middle" fill="rgba(255,255,255,0.6)" fontSize="9">Green Target</text>
               </svg>
-            </div>
+            </div> */}
 
             {/* Legend */}
-            <div className="vis-legend">
-              <div className="legend-item">
-                <span className="leg-dot" style={{ background: '#7ec8a0' }} />
-                <span>Renewable</span>
-                <strong>73%</strong>
-              </div>
-              <div className="legend-item">
-                <span className="leg-dot" style={{ background: '#c9a84c' }} />
-                <span>In Progress</span>
-                <strong>18%</strong>
-              </div>
-              <div className="legend-item">
-                <span className="leg-dot" style={{ background: 'rgba(255,255,255,0.2)' }} />
-                <span>Pending</span>
-                <strong>9%</strong>
-              </div>
-            </div>
+         
 
             {/* Mini project progress bars */}
-            <div className="vis-projects">
+            {/* <div className="vis-projects">
               {[
                 { icon: '☀️', label: 'Solar Initiative Phase 3', pct: 82, color: '#c9a84c' },
                 { icon: '💨', label: 'Wind Farm Expansion',      pct: 65, color: '#7ec8a0' },
@@ -301,7 +273,7 @@ const HeroSection = () => {
                   <span className="mp-icon">{proj.icon}</span>
                   <div className="mp-info">
                     <span>{proj.label}</span>
-                    {/* Progress bar: width % is set inline */}
+                    
                     <div className="mp-bar">
                       <div style={{ width: `${proj.pct}%`, background: proj.color }} />
                     </div>
@@ -309,24 +281,24 @@ const HeroSection = () => {
                   <span className="mp-pct">{proj.pct}%</span>
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
 
           {/* Floating mini badges — absolutely positioned over the card */}
-          <div className="floating-badge badge-top">
+          {/* <div className="floating-badge badge-top">
             <span>🌱</span>
             <div>
               <div className="fb-val">+14.2%</div>
               <div className="fb-label">YoY Growth</div>
             </div>
-          </div>
-          <div className="floating-badge badge-bottom">
+          </div> */}
+          {/* <div className="floating-badge badge-bottom">
             <span>⚡</span>
             <div>
               <div className="fb-val">98.7%</div>
               <div className="fb-label">Compliance Rate</div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -335,12 +307,7 @@ const HeroSection = () => {
         The scrollWheel keyframe in global.css moves the dot up and down.
         Pure CSS; no JavaScript needed.
       */}
-      <div className="scroll-cue">
-        <div className="scroll-mouse">
-          <div className="scroll-wheel" />
-        </div>
-        <span>Scroll to explore</span>
-      </div>
+      
     </section>
   );
 };
