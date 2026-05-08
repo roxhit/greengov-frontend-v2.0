@@ -16,6 +16,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
+import RegisterPage from './pages/AuthPage/RegisterPage';
+import Dashboard from './pages/Dashboard/Dashboard';
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
 
         {/* To add a new page: <Route path="/about" element={<AboutPage />} /> */}
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/dashboard" element={<Dashboard/>}/>
       </Routes>
     </Router>
   );
